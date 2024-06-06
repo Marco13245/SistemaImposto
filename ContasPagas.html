@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Inicial</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="listar.css" media="screen" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+        <a class="navbar-brand" href="./home.html">
+            <img src="Images/Novo Projeto (1).png" id="Logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav justify-content-center" id="opcn">
+                <li class="nav-item active opnv">
+                    <a class="nav-link" href="./home.html">Inicio</a>
+                </li>
+                <li class="nav-item opnv2">
+                    <a class="nav-link" href="./AdicionarContribuinte.html">Adicionar Contribuinte</a>
+                </li>
+                <li class="nav-item opnv3">
+                    <a class="nav-link" href="./ListarContribuinte.html">Listar Contribuinte</a>
+                </li>
+                <li class="nav-item opnv3">
+                    <a class="nav-link" href="./ListarUsuarios.html">Listar Usuarios</a>
+                </li>
+                <li class="nav-item opnv4">
+                    <a class="nav-link" href="./ContasAReceber.html">Contas a Receber</a>
+                  </li>
+                  <li class="nav-item opnv5">
+                    <a class="nav-link" href="./ContasPagas.html">Contas Pagas</a>
+                  </li>
+            </ul>
+        </div>
+        <a id="LoginIcon" class="nav-link" onclick="removerToken()" href="./EscolherLC.html">
+            <img src="Images/login (1).png" id="LoginIconImg">
+            <p id="loginText">Entrar</p>
+        </a>
+    </nav>
+
+    <div style="width: 80%; margin-left: 10%; margin-right: 10%; margin-top: 100px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h1 style="font-size: 30px; margin: 0; flex: 1;">Lista de Contas Pagas </h1>
+            <input style="width: 200px;margin-right: 40px;" type="text" class="form-control" placeholder="Pesquisar..." id="inputPesquisa">
+
+        </div>
+        <table class="table table-striped table-dark" id="tabela-contribuintes">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Ano</th>
+                    <th scope="col">Valor a Receber</th>
+                    <th scope="col">Valor Pago</th>
+                    <th scope="col">Nome Contribuinte</th>
+                    <th scope="col">Telefone Contribuinte</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As linhas da tabela serão preenchidas dinamicamente aqui -->
+            </tbody>
+        </table>
+    </div>
+
+   
+       
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmar Exclusão</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="contribuinteId">
+                    Tem certeza que deseja excluir o registro do Ano de <span id="nomePessoa"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmarExclusao" onclick="confirmarExclusao()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
+    <script>
+
+document.getElementById('inputPesquisa').addEventListener('input', filtrarTabela);
+function filtrarTabela() {
+const input = document.getElementById('inputPesquisa').value.toLowerCase();
+const rows = document.querySelectorAll('#tabela-contribuintes tbody tr');
+
+rows.forEach(row => {
+const cells = row.querySelectorAll('td');
+let match = false;
+
+cells.forEach(cell => {
+  if (cell.textContent.toLowerCase().includes(input) || input === '') {
+    match = true;
+  }
+});
+
+if (match) {
+  row.style.display = ''; // Mostrar a linha se houver correspondência ou se o campo estiver vazio
+} else {
+  row.style.display = 'none'; // Ocultar a linha se não houver correspondência
+}
+});
+}
+
+
+        function removerToken() {
+            localStorage.removeItem('token');
+        }
+
+
+        // Função para buscar os contribuintes e preencher a tabela
+        async function buscarContribuintes() {
+            try {
+            
+          
+            const response = await fetch(`http://localhost:3001/ContasPagas`);
+            const data = await response.json();
+            const impostos = data.impostos;
+            console.log(impostos);
+
+            // Referência à tabela  
+            const tabela = document.getElementById('tabela-contribuintes');
+
+            // Limpa as linhas existentes
+            tabela.querySelector('tbody').innerHTML = '';
+
+            // Preenche as linhas da tabela com os dados dos impostos
+            impostos.forEach((imposto, index) => {
+                const newRow = tabela.querySelector('tbody').insertRow();
+                newRow.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${imposto.AnoImposto}</td>
+                    <td>${imposto.ValorReceber}</td>
+                    <td>${imposto.ValorPago}</td>
+                    <td>${imposto.Contribuinte.Nome}</td>
+                    <td>${imposto.Contribuinte.Celular}</td>
+                    <td><a class="btn btn-primary" href="./EditarImposto.html?id=${imposto.id}">Editar</a></td>
+                    <td><button class="btn btn-danger" onclick="exibirModalExclusao('${imposto.AnoImposto}', ${imposto.id})">Excluir</button></td>
+
+                `;
+            });
+    } catch (error) {
+        console.error('Erro ao buscar impostos:', error);
+    }
+}
+        // Chama a função buscarContribuintes quando a página é carregada
+        window.addEventListener('DOMContentLoaded', function() {
+buscarContribuintes();
+
+});
+    </script>
+<script>
+    // Função para exibir o modal de exclusão e preencher o nome e o ID do contribuinte
+    function exibirModalExclusao(nome,   id) {
+        // Preenche o nome da pessoa no modal
+        document.getElementById('nomePessoa').textContent = nome;
+        // Preenche o ID do contribuinte no modal   
+        document.getElementById('contribuinteId').value = id;
+
+        // Exibe o modal de exclusão
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            keyboard: false
+        });
+        myModal.show();
+    }
+
+
+</script>
+
+<script>
+    // Função para confirmar a exclusão do contribuinte
+    async function confirmarExclusao() {
+        try {
+            // Obtém o ID do contribuinte a ser excluído do campo de entrada hidden
+            const contribuinteId = document.getElementById('contribuinteId').value;
+
+            // Envia uma solicitação DELETE para a rota de exclusão do contribuinte com o ID especificado
+            const response = await fetch(`http://localhost:3001/ExcluirImposto/${contribuinteId}`, {
+                method: 'DELETE'
+            });
+
+            // Verifica se a solicitação foi bem-sucedida (status 200)
+            if (response.ok) {
+                // Remove a linha da tabela correspondente ao contribuinte excluído
+                const tabela = document.getElementById('tabela-contribuintes');
+                
+                const rowIndex = Array.from(tabela.querySelectorAll('tbody tr')).findIndex(row => row.cells[6].textContent === contribuinteId);
+                if (rowIndex !== -1) {
+                    tabela.deleteRow(rowIndex);
+                }
+                window.location.reload();
+
+                // Fecha o modal após a exclusão
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+                    keyboard: false
+                });
+                myModal.hide();
+            } else {
+                console.error('Erro ao excluir Imposto:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Erro ao excluir Imposto:', error);
+        }
+    }
+</script>
+
+
+
+</body>
+</html>

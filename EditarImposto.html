@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="adicionarC.css" media="screen" />
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+        <a class="navbar-brand" href="./home.html">
+          <img src="Images/Novo Projeto (1).png" id="Logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav justify-content-center" id="opcn">
+            <li class="nav-item active opnv">
+              <a class="nav-link" href="./home.html">Inicio</a>
+            </li>
+            <li class="nav-item opnv2">
+              <a class="nav-link" href="./AdicionarContribuinte.html">Adicionar Contribuinte</a>
+            </li>
+            <li class="nav-item opnv3">
+              <a class="nav-link" href="./ListarContribuinte.html">Listar Contribuinte</a>
+            </li>
+            <li class="nav-item opnv4">
+              <a class="nav-link" href="./ContasAReceber.html">Contas a Receber</a>
+            </li>
+            <li class="nav-item opnv5">
+              <a class="nav-link" href="./ContasPagas.html">Contas Pagas</a>
+            </li>
+          </ul>
+        </div>
+        <a id="LoginIcon" class="nav-link" onclick="removerToken()" href="./EscolherLC.html">
+          <img src="Images/login (1).png" id="LoginIconImg">
+          <p id="loginText">Entrar</p>
+        </a>
+      </nav>
+
+      <div id="teste">
+        <div id="FundoQuadrado" style="height: 450px;">
+            <h1 id="h1AdCont">Editar Imposto de </h1>
+            <div id="linha"></div>
+
+            <form>
+            <div id="parte1">
+            <div class="form-group">
+
+  
+                
+                <label class="form-group" for="form-check" style="margin-top: 5px;">Estado</label>
+                <select class="form-select form-select-sm form-group" id="estado" aria-label=".form-select-sm example">
+                  <option value="Fila de Restituição">Fila de Restituição</option>
+                  <option value="Pendência">Pendência</option>
+                  <option value="Não Entregue">Não Entregue</option>
+                  <option value="Processada">Processada</option>
+                </select>
+   
+  
+                <div class="form-group" style="margin-top: 5px;">
+                  <label for="ValorRece">Valor à Receber</label>
+                  <input type="number" class="form-control" id="ValorRece" placeholder="Digite o valor a receber..." required>
+                </div>
+  
+                <div class="form-group"style="margin-top: 5px;">
+                  <label for="ValorPago">Valor já Pago</label>
+                  <input type="number" class="form-control" id="ValorPago" placeholder="Digite o valor já pago..."required>
+                </div>
+                  
+                <div class="form-group"style="margin-top: 5px;">
+                  <label for="AnoImp">Ano do imposto declarado</label>
+                  <input type="number" class="form-control" id="AnoImp" placeholder="Digite o ano do Imposto..."required>
+                </div>
+  
+                <div class="form-group"style="margin-top: 5px;">
+                  <label for="Obs">Observação</label>
+                  <textarea class="form-control" id="Obs" style="height: 30px;max-height: 30px;"required></textarea>
+              </div>
+              </div>
+  
+
+              </form>
+              <div class="d-flex justify-content-center" style="margin-top: 5px;">
+                <button id="finalizarBtn" class="btn btn-success" type="button" >Salvar</button>
+            </div>
+        </div>
+
+      </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+      <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+      <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
+
+  <script>
+      function removerToken() {
+    localStorage.removeItem('token');
+  }
+
+// Verifica se há um token armazenado no localStorage após o carregamento da página
+  window.addEventListener('DOMContentLoaded', (event) => {
+  const token = localStorage.getItem('token');
+  console.log(token);
+  // Se houver um token, substitui o texto "Entrar" pelo email do usuário
+  if (token) {
+    try {
+      // Decodifica o token JWT para obter o email do usuário
+      const decodedToken = jwt_decode(token); // Corrigido aqui
+      console.log(decodedToken);
+      const userEmail = decodedToken.Email;
+      console.log(userEmail);
+      // Atualiza o texto do elemento com id "loginText" para mostrar o email do usuário
+      document.getElementById('loginText').textContent = userEmail;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+    }
+  }
+});
+
+
+const parte1 = document.getElementById('parte1');
+        const parte2 = document.getElementById('parte2');
+        const btnProx = document.getElementById('proximoBtn');
+        const btnAnt = document.getElementById('anteriorBtn');
+        const fundo = document.getElementById('FundoQuadrado');
+        
+        document.getElementById('proximoBtn').addEventListener('click', function() {
+            parte1.style.display = 'none';
+            parte2.style.display = 'block';
+            btnProx.style.opacity = "50%";
+            btnProx.style.pointerEvents = "none";
+            btnAnt.style.opacity = "100%";
+            btnAnt.style.pointerEvents = "auto";
+            fundo.style.height = "660px";
+        });
+
+        document.getElementById('anteriorBtn').addEventListener('click', function() {
+            parte1.style.display = 'block';
+            parte2.style.display = 'none';
+            btnProx.style.opacity = "100%";
+            btnProx.style.pointerEvents = "auto";
+            btnAnt.style.opacity = "50%";
+            btnAnt.style.pointerEvents = "none";
+            fundo.style.height = "570px";
+
+        });
+
+        
+
+</script>
+
+<script>
+
+
+    window.addEventListener('DOMContentLoaded', async () => {
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        if (id) {
+            try {
+                const response = await fetch(`http://localhost:3001/ObterImposto/${id}`);
+                const data = await response.json();
+                const imposto = data.imposto;
+
+                document.getElementById('ValorRece').value = imposto.ValorReceber;
+                document.getElementById('ValorPago').value = imposto.ValorPago;
+                document.getElementById('AnoImp').value = imposto.AnoImposto;
+                document.getElementById('Obs').value = imposto.Observacao;
+                document.getElementById('estado').value = imposto.Status;
+                document.querySelector('#estado').dispatchEvent(new Event('change'));
+            } catch (error) { 
+                console.error('Erro ao obter dados do imposto:', error);
+            }
+        } else {
+            console.error('ID do imposto não encontrado na URL.');
+        }
+    });
+</script>
+
+
+<script>
+
+function obterIdDaUrl() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        return urlParams.get('id');
+    }
+
+    // Função para obter o ID do contribuinte da URL
+    function getIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+    }
+
+    // Adicionar evento de clique ao botão "Salvar"
+    document.getElementById('finalizarBtn').addEventListener('click', async function() {
+        // Obter o ID do contribuinte da URL
+        const id = getIdFromUrl();
+        const contribuinteId = obterIdDaUrl();
+
+        console.log(id);
+        // Verificar se o ID foi obtido corretamente
+        if (!id) {
+            console.error('ID do contribuinte não encontrado na URL.');
+            return;
+        }
+
+        // Coletar os dados do formulário
+
+        const estado = document.getElementById('estado').value;
+        const valorRece = document.getElementById('ValorRece').value;
+        const valorPago = document.getElementById('ValorPago').value;
+        const anoImp = document.getElementById('AnoImp').value;
+        const obs = document.getElementById('Obs').value;
+
+         // Verificar se algum dos valores coletados é vazio
+         if (
+
+            estado === '' ||
+            valorRece === '' ||
+            valorPago === '' ||
+            anoImp === '' ||
+            obs === ''
+        ) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+
+        // Montar o objeto com os dados do imposto
+        const imposto = {
+
+            Status: estado,
+            ValorReceber: valorRece,
+            ValorPago: valorPago,
+            AnoImposto: anoImp,
+            Observacao: obs
+        };
+
+        // Enviar uma solicitação PUT para atualizar o registro do contribuinte
+        try {
+            const response = await fetch(`http://localhost:3001/AtualizarImposto/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(imposto)
+            });
+
+            if (response.ok) {
+                alert('Registro atualizado com sucesso!');
+                const data = response.json();
+                window.location.href = `./ListarContribuinte.html`;
+                const user = data.contribuinte;
+                console.log(user);
+                // Redirecionar para a página de listagem de contribuintes ou fazer outra ação necessária
+            } else {
+                throw new Error('Erro ao atualizar registro.');
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar registro:', error);
+            alert('Erro ao atualizar registro. Verifique o console para mais detalhes.');
+        }
+    });
+</script>
+
+
+    
+</body>
+</html>

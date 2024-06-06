@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="Cadastrar.css" media="screen" />
+
+</head>
+<body>
+
+
+    <div id="total">
+        <div id="FundoQuadrado">
+            <a href="./home.html"> <img id="foto" src="Images/Novo Projeto (1).png" /></a>
+
+                <div id="RetanguloLogin2" class="movendo">
+                    
+                    <h1 id="H1Entrar">Cadastrar</h1>
+                    <div id="linha"></div>
+
+                    <img id="login" src="Images/login (1).png"/>
+                    <form method="POST" action="/Cadastrar">
+
+                        <div class="form-group inp" id="inp1">
+                            <label for="exampleInputEmail1">Email</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+                          </div>
+                          <div class="form-group inp" id="inp2">
+                            <label for="exampleInputPassword1">Senha</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha">
+                            <a href="./Login.html" id="npc">Já Possuo conta</a>
+                        </div>
+
+                    </form>
+                    <center>
+                    <button type="button" id="cadastrarBtn" class="btn btn-primary">Cadastrar</button>
+                </center>
+                </div>
+
+            
+        </div>
+        
+    </div>
+
+    <script src="script.js"></script>
+
+   <script>
+    document.getElementById('cadastrarBtn').addEventListener('click', function() {
+        const email = document.getElementById('exampleInputEmail1').value;
+        const senha = document.getElementById('exampleInputPassword1').value;
+
+        // Enviar os dados para o servidor via fetch ou XMLHttpRequest
+        fetch('http://localhost:3001/Cadastrar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, senha })
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirecionar para a tela de login
+                window.location.href = './Login.html';
+            } else if (response.status === 422) {
+                // Exibir um alerta personalizado para o usuário quando o e-mail já estiver em uso
+                alert("E-mail já está em uso por outro usuário!");
+            } else {
+                alert("Erro ao cadastrar!");
+                throw new Error('Erro ao cadastrar usuário');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            // Trate o erro, se necessário
+        });
+    });
+</script>
+
+</body>
+</html>

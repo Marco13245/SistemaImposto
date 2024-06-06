@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="adicionarC.css" media="screen" />
+    <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+        <a class="navbar-brand" href="./home.html">
+          <img src="Images/Novo Projeto (1).png" id="Logo" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav justify-content-center" id="opcn">
+            <li class="nav-item active opnv">
+              <a class="nav-link" href="./home.html">Inicio</a>
+            </li>
+            <li class="nav-item opnv2">
+              <a class="nav-link" href="./AdicionarContribuinte.html">Adicionar Contribuinte</a>
+            </li>
+            <li class="nav-item opnv3">
+              <a class="nav-link" href="./ListarContribuinte.html">Listar Contribuinte</a>
+            </li>
+            <li class="nav-item opnv4">
+              <a class="nav-link" href="./ContasAReceber.html">Contas a Receber</a>
+            </li>
+            <li class="nav-item opnv5">
+              <a class="nav-link" href="./ContasPagas.html">Contas Pagas</a>
+            </li>
+          </ul>
+        </div>
+        <a id="LoginIcon" class="nav-link" onclick="removerToken()" href="./EscolherLC.html">
+          <img src="Images/login (1).png" id="LoginIconImg">
+          <p id="loginText">Entrar</p>
+        </a>
+      </nav>
+
+      <div id="teste">
+        <div id="FundoQuadrado">
+            <h1 id="h1AdCont">Editar Contribuinte</h1>
+            <div id="linha"></div>
+
+            <form>
+            <div id="parte1">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" class="form-control" id="NomeCompleto" placeholder="Digite o nome completo..." required>
+              </div>
+
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="Celular">Celular</label>
+                <input type="text" class="form-control" id="Celular" placeholder="(11) 1111-1111" required>
+              </div>
+
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="Email">E-mail</label>
+                <input type="text" class="form-control" id="Email" placeholder="Digite o email..." required>
+              </div>
+
+              <div class="form-group"style="margin-top: 5px;">
+                <label for="DataNasc">Data de Nascimento</label>
+                <input type="date" class="form-control" id="DataNasc" placeholder="XX/XX/XXXX..." required>
+              </div>
+
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="Rua">Rua</label>
+                <input type="text" class="form-control" id="Rua" placeholder="Digite o nome da rua..." required>
+              </div>
+
+              
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="Numero">Numero</label>
+                <input type="text" class="form-control" id="Numero" placeholder="Digite o Numero da casa..."required>
+              </div>
+
+              
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="Cidade">Cidade</label>
+                <input type="text" class="form-control" id="Cidade" placeholder="Digite o nome da cidade..."required>
+              </div>
+
+            </div>
+
+            <div id="parte2">
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="CPF">CPF</label>
+                <input type="text" class="form-control" id="CPF" placeholder="Digite o CPF..."required>
+              </div>
+
+              <div class="form-group" style="margin-top: 5px;">
+                <label for="SenhaGov">Senha do Gov</label>
+                <input type="text" class="form-control" id="SenhaGov" placeholder="Digite o nome da cidade..."required>
+              </div>
+              
+              
+              <label class="form-group"   for="form-check" style="margin-top: 5px;">Nivel da senha</label>
+              <select class="form-select form-select-sm form-group" id="nivelSenha" aria-label=".form-select-sm example">
+                <option selected value="Bronze">Bronze</option>
+                <option value="Prata">Prata</option>
+                <option value="Ouro">Ouro</option>
+              </select>
+            </div>
+
+              </form>
+              <div class="d-flex justify-content-center" style="height: 90px;">
+                <div style="position: absolute; bottom: 0;height: 90px;">
+
+                <button id="anteriorBtn" class="btn btn-primary">Anterior</button>
+                <button id="finalizarBtn" class="btn btn-success" type="submit">Salvar</button>
+                <button id="proximoBtn" class="btn btn-primary">Próximo</button>
+            </div>
+            
+        </div>
+
+      </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+      <script type='text/javascript' src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+      <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.1.60/inputmask/jquery.inputmask.js"></script>
+
+  <script>
+      function removerToken() {
+    localStorage.removeItem('token');
+  }
+
+// Verifica se há um token armazenado no localStorage após o carregamento da página
+  window.addEventListener('DOMContentLoaded', (event) => {
+  const token = localStorage.getItem('token');
+  console.log(token);
+  // Se houver um token, substitui o texto "Entrar" pelo email do usuário
+  if (token) {
+    try {
+      // Decodifica o token JWT para obter o email do usuário
+      const decodedToken = jwt_decode(token); // Corrigido aqui
+      console.log(decodedToken);
+      const userEmail = decodedToken.Email;
+      console.log(userEmail);
+      // Atualiza o texto do elemento com id "loginText" para mostrar o email do usuário
+      document.getElementById('loginText').textContent = userEmail;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+    }
+  }
+});
+
+
+const parte1 = document.getElementById('parte1');
+        const parte2 = document.getElementById('parte2');
+        const btnProx = document.getElementById('proximoBtn');
+        const btnAnt = document.getElementById('anteriorBtn');
+        const fundo = document.getElementById('FundoQuadrado');
+        
+        document.getElementById('proximoBtn').addEventListener('click', function() {
+            parte1.style.display = 'none';
+            parte2.style.display = 'block';
+            btnProx.style.opacity = "50%";
+            btnProx.style.pointerEvents = "none";
+            btnAnt.style.opacity = "100%";
+            btnAnt.style.pointerEvents = "auto";
+            fundo.style.height = "570px";
+        });
+
+        document.getElementById('anteriorBtn').addEventListener('click', function() {
+            parte1.style.display = 'block';
+            parte2.style.display = 'none';
+            btnProx.style.opacity = "100%";
+            btnProx.style.pointerEvents = "auto";
+            btnAnt.style.opacity = "50%";
+            btnAnt.style.pointerEvents = "none";
+            fundo.style.height = "570px";
+
+        });
+
+        
+
+</script>
+
+<script>
+
+    window.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        if (id) {
+            try {
+                const response = await fetch(`http://localhost:3001/ObterContribuinte/${id}`);
+                const data = await response.json();
+                const contribuinte = data.contribuinte;
+
+                document.getElementById('NomeCompleto').value = contribuinte.Nome;
+                document.getElementById('Celular').value = contribuinte.Celular;
+                document.getElementById('Email').value = contribuinte.Email;
+                const dataNascimento = new Date(contribuinte.DataNascimento);
+
+                // Obtendo o ano, mês e dia
+                const ano = dataNascimento.getFullYear();
+                const mes = String(dataNascimento.getMonth() + 1).padStart(2, '0'); // Os meses são indexados de 0 a 11
+                const dia = String(dataNascimento.getDate()).padStart(2, '0');
+
+                // Formatando a data no formato "yyyy-MM-dd"
+                const dataFormatada = `${ano}-${mes}-${dia}`;
+                console.log(contribuinte);
+
+                // Definindo o valor do campo de entrada de data
+                document.getElementById('DataNasc').value = dataFormatada;
+                document.getElementById('Rua').value = contribuinte.Rua;
+                document.getElementById('Numero').value = contribuinte.Numero;
+                document.getElementById('Cidade').value = contribuinte.Cidade;
+                document.getElementById('CPF').value = contribuinte.CPF;
+                document.getElementById('SenhaGov').value = contribuinte.SenhaGov;
+                document.getElementById('nivelSenha').value = contribuinte.NivelSenhaGov;
+                document.querySelector('#nivelSenha').dispatchEvent(new Event('change'));
+            } catch (error) { 
+                console.error('Erro ao obter dados do contribuinte:', error);
+            }
+        } else {
+            console.error('ID do contribuinte não encontrado na URL.');
+        }
+    });
+</script>
+
+
+<script>
+    // Função para obter o ID do contribuinte da URL
+    function getIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+    }
+
+    // Adicionar evento de clique ao botão "Salvar"
+    document.getElementById('finalizarBtn').addEventListener('click', async function() {
+        // Obter o ID do contribuinte da URL
+        const id = getIdFromUrl();
+        console.log(id);
+        // Verificar se o ID foi obtido corretamente
+        if (!id) {
+            console.error('ID do contribuinte não encontrado na URL.');
+            return;
+        }
+
+        // Coletar os dados do formulário
+        const nome = document.getElementById('NomeCompleto').value;
+        const celular = document.getElementById('Celular').value;
+        const email = document.getElementById('Email').value;
+        const dataNasc = document.getElementById('DataNasc').value;
+        const rua = document.getElementById('Rua').value;
+        const numero = document.getElementById('Numero').value;
+        const cidade = document.getElementById('Cidade').value;
+        const cpf = document.getElementById('CPF').value;
+        const senhaGov = document.getElementById('SenhaGov').value;
+        const nivelSenha = document.getElementById('nivelSenha').value;
+
+         // Verificar se algum dos valores coletados é vazio
+         if (
+            nome === '' ||
+            celular === '' ||
+            email === '' ||
+            dataNasc === '' ||
+            rua === '' ||
+            numero === '' ||
+            cidade === '' ||
+            cpf === '' ||
+            senhaGov === '' ||
+            nivelSenha === '' 
+        ) {
+            alert('Por favor, preencha todos os campos.');
+            return;
+        }
+
+
+        // Montar o objeto com os dados do contribuinte
+        const contribuinte = {
+            Nome: nome,
+            Celular: celular,
+            Email: email,
+            DataNascimento: dataNasc,
+            Rua: rua,
+            Numero: numero,
+            Cidade: cidade,
+            CPF: cpf,
+            SenhaGov: senhaGov,
+            NivelSenhaGov: nivelSenha
+        };
+
+        // Enviar uma solicitação PUT para atualizar o registro do contribuinte
+        try {
+            const response = await fetch(`http://localhost:3001/AtualizarContribuinte/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contribuinte)
+            });
+
+            if (response.ok) {
+                alert('Registro atualizado com sucesso!');
+                const data = response.json();
+                window.location.href = "./ListarContribuinte.html";
+                const user = data.contribuinte;
+                console.log(user);
+                // Redirecionar para a página de listagem de contribuintes ou fazer outra ação necessária
+            } else {
+                throw new Error('Erro ao atualizar registro.');
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar registro:', error);
+            alert('Erro ao atualizar registro. Verifique o console para mais detalhes.');
+        }
+    });
+</script>
+
+
+    
+</body>
+</html>
